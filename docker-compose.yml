@@ -1,0 +1,56 @@
+version: "3.9"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: TarefasApp.Api/Dockerfile
+    container_name: tarefasapp-api
+    ports:
+      - "5000:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__SqlServer=Server=sqlserver_tarefas,1433;Database=TarefasDb;User=sa;Password=Desafio@2025;
+      - ConnectionStrings__MongoDb=mongodb://admin:desafio2025@tarefasapp-mongo:27017
+    depends_on:
+      - sqlserver
+      - mongodb
+    networks:
+      - tarefas_network
+    restart: unless-stopped
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver_tarefas
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Desafio@2025  
+    ports:
+      - "1435:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    networks:
+      - tarefas_network
+    restart: unless-stopped
+
+  mongodb:
+    image: mongo:7.0
+    container_name: tarefasapp-mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: desafio2025
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - tarefas_network
+
+volumes:
+  sqlserver_data:
+  mongodb_data:
+
+networks:
+  tarefas_network:
+    driver: bridge
