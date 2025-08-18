@@ -4,16 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TarefasApp.Domain.Dtos.Responses;
-using TarefasApp.Domain.Entities;
 
 namespace TarefasApp.Domain.Interfaces.Repositories
 {
-    public interface IUsuariosRepository
+    public interface IRelatoriosRepository
     {
-        bool IsRoleManager(Guid? IdUsuario);
-
-        Usuario? GetById(Guid? id);
-
-        List<Usuario>? GetAll();
+        List<UsuariosTarefasResponseDto>? GetUsersTasksAverage_Last30Days();
     }
 }

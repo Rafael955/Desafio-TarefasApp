@@ -12,18 +12,6 @@ namespace TarefasApp.Domain.Services
 {
     public class UsuariosDomainService(IUsuariosRepository usuariosRepository) : IUsuariosDomainService
     {
-        public List<UsuariosTarefasResponseDto>? UsuariosTarefasConcluidas_Ultimos30Dias(Guid? IdUsuario)
-        {
-            #region Regra de Negócio: Os relatórios devem ser acessíveis apenas por usuários com uma função específica de "gerente".
-
-            if (!usuariosRepository.IsRoleManager(IdUsuario))
-                throw new ApplicationException("Apenas usuários 'GERENTES' podem acessar relatórios.");
-
-            #endregion
-
-            return usuariosRepository.GetUsersTasksAverage_Last30Days();
-        }
-
         public UsuarioResponseDto? ObterUsuarioPorId(Guid? idUsuario)
         {
             var usuario = usuariosRepository.GetById(idUsuario);
@@ -37,6 +25,9 @@ namespace TarefasApp.Domain.Services
         public List<UsuarioResponseDto>? ListarUsuarios()
         {
             var usuarios = usuariosRepository.GetAll();
+
+            if (usuarios == null)
+                throw new ApplicationException("Nenhum usuario foi encontrado.");
 
             List<UsuarioResponseDto>? _usuarios = new List<UsuarioResponseDto>();
 

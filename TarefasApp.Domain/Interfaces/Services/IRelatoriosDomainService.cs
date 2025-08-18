@@ -7,10 +7,8 @@ using TarefasApp.Domain.Dtos.Responses;
 
 namespace TarefasApp.Domain.Interfaces.Services
 {
-    public interface IUsuariosDomainService
+    public interface IRelatoriosDomainService
     {
-        UsuarioResponseDto? ObterUsuarioPorId(Guid? idUsuario);
-
-        List<UsuarioResponseDto>? ListarUsuarios();
+        List<UsuariosTarefasResponseDto> UsuariosTarefasConcluidas_Ultimos30Dias(Guid? IdUsuario);
     }
 }

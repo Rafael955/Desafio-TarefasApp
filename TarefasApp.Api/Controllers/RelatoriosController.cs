@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TarefasApp.Domain.Dtos.Responses;
+using TarefasApp.Domain.Interfaces.Services;
 using TarefasApp.Domain.Services;
 
 namespace TarefasApp.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RelatoriosController : ControllerBase
+    public class RelatoriosController(IRelatoriosDomainService relatoriosDomainService) : ControllerBase
     {
         [HttpGet("usuarios-tarefas/{idUsuario}")]
         [ProducesResponseType(typeof(UsuariosTarefasResponseDto), StatusCodes.Status200OK)]
@@ -15,7 +16,7 @@ namespace TarefasApp.Api.Controllers
         {
             try
             {
-                var result = usuariosDomainService.UsuariosTarefasConcluidas_Ultimos30Dias(idUsuario);
+                var result = relatoriosDomainService.UsuariosTarefasConcluidas_Ultimos30Dias(idUsuario);
 
                 return StatusCode(StatusCodes.Status200OK, result);
             }
