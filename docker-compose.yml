@@ -8,10 +8,6 @@ services:
     container_name: tarefasapp-api
     ports:
       - "5000:8080"
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__SqlServer=Server=sqlserver_tarefas,1433;Database=TarefasDb;User=sa;Password=Desafio@2025;
-      - ConnectionStrings__MongoDb=mongodb://admin:desafio2025@tarefasapp-mongo:27017
     depends_on:
       - sqlserver
       - mongodb
