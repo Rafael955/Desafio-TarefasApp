@@ -10,32 +10,6 @@ namespace TarefasApp.Api.Controllers
     [ApiController]
     public class UsuariosController (IUsuariosDomainService usuariosDomainService) : ControllerBase
     {
-        [HttpGet("relatorio-usuarios-tarefas/{idUsuario}")]
-        [ProducesResponseType(typeof(UsuariosTarefasResponseDto), StatusCodes.Status200OK)]
-        public IActionResult GetUsersAverageTasks_Last30Days(Guid? idUsuario)
-        {
-            try
-            {
-                var result = usuariosDomainService.UsuariosTarefasConcluidas_Ultimos30Dias(idUsuario);
-
-                return StatusCode(StatusCodes.Status200OK, result);
-            }
-            catch (ApplicationException ex)
-            {
-                return StatusCode(StatusCodes.Status401Unauthorized, new
-                {
-                    message = ex.Message
-                });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, new
-                {
-                    message = ex.Message
-                });
-            }
-        }
-
         [HttpGet("obter-usuario/{id}")]
         [ProducesResponseType(typeof(UsuarioResponseDto), StatusCodes.Status200OK)]
         public IActionResult Get(Guid? idUsuario)
