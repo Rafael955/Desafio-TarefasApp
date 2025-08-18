@@ -50,7 +50,9 @@ Para rodar toda a stack (API, SQL Server e MongoDB) em containers Docker:
 
 2. No terminal, navegue até a pasta do projeto.
 
-3. Execute o comando abaixo para construir e iniciar os containers:    docker-compose up --build4. Aguarde até que os containers estejam completamente iniciados.
+3. Execute o comando abaixo para construir e iniciar os containers:    docker-compose up --build
+ 
+4. Aguarde até que os containers estejam completamente iniciados.
 
 5. Acesse a aplicação em `http://localhost:5000` (ou na porta definida no seu `docker-compose.yml`).
 

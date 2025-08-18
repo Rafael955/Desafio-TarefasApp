@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TarefasApp.Domain.Dtos.Responses;
 using TarefasApp.Domain.Interfaces.Services;
 using TarefasApp.Domain.Services;
 
@@ -10,6 +11,7 @@ namespace TarefasApp.Api.Controllers
     public class UsuariosController (IUsuariosDomainService usuariosDomainService) : ControllerBase
     {
         [HttpGet("relatorio-usuarios-tarefas/{idUsuario}")]
+        [ProducesResponseType(typeof(UsuariosTarefasResponseDto), StatusCodes.Status200OK)]
         public IActionResult GetUsersAverageTasks_Last30Days(Guid? idUsuario)
         {
             try
@@ -32,6 +34,18 @@ namespace TarefasApp.Api.Controllers
                     message = ex.Message
                 });
             }
+        }
+
+        [HttpGet("obter-usuario/{id}")]
+        [ProducesResponseType(typeof(UsuarioResponseDto), StatusCodes.Status200OK)]
+        public IActionResult Get(Guid? idUsuario)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IActionResult Get()
+        {
+            throw new NotImplementedException();
         }
     }
 }

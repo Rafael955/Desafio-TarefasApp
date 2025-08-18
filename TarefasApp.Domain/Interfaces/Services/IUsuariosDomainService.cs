@@ -10,5 +10,9 @@ namespace TarefasApp.Domain.Interfaces.Services
     public interface IUsuariosDomainService
     {
         List<UsuariosTarefasResponseDto> UsuariosTarefasConcluidas_Ultimos30Dias(Guid? IdUsuario);
+
+        UsuarioResponseDto? ObterUsuarioPorId(Guid? idUsuario);
+
+        List<UsuarioResponseDto>? ListarUsuarios();
     }
 }

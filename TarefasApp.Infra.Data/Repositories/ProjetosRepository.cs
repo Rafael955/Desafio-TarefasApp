@@ -44,7 +44,6 @@ namespace TarefasApp.Infra.Data.Repositories
             using (var context = new DataContext())
             {
                 return context.Set<Projeto>()
-                    .Include(x => x.Tarefas)
                     .AsNoTracking()
                     .ToList();
             }
@@ -55,6 +54,8 @@ namespace TarefasApp.Infra.Data.Repositories
             using (var context = new DataContext())
             {
                 return context.Set<Projeto>()
+                    .Include(x => x.UsuariosProjeto)
+                       .ThenInclude(x => x.Usuario)
                     .Include(x => x.Tarefas)
                     .SingleOrDefault(x => x.Id == Id);
             }
@@ -65,6 +66,9 @@ namespace TarefasApp.Infra.Data.Repositories
             using (var context = new DataContext())
             {
                 return context.Set<Projeto>()
+                    .Include(x => x.UsuariosProjeto)
+                       .ThenInclude(x => x.Usuario)
+                    .Include(x => x.Tarefas)
                     .FirstOrDefault(x => x.Nome.Equals(nome));
             }
         }
@@ -77,7 +81,7 @@ namespace TarefasApp.Infra.Data.Repositories
                     .Include(x => x.Tarefas)
                     .SingleOrDefault(x => x.Id == Id);
 
-                return result.Tarefas?.Count() == 20;
+                return result == null ? false : result.Tarefas?.Count() == 20;
             }
         }
     }

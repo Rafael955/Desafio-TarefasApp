@@ -16,9 +16,9 @@ namespace TarefasApp.Domain.Entities
 
         #region Relacionamento
 
-        public List<UsuarioProjeto>? Usuarios { get; set; }
+        public List<UsuarioProjeto>? UsuariosProjeto { get; set; } = new List<UsuarioProjeto>();
 
-        public List<Tarefa>? Tarefas { get; set; }
+        public List<Tarefa>? Tarefas { get; set; } = new List<Tarefa>();
 
         #endregion
     }

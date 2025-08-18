@@ -27,10 +27,9 @@ namespace TarefasApp.Infra.Data.Repositories
 
         public List<UsuariosTarefasResponseDto>? GetUsersTasksAverage_Last30Days()
         {
-            using (var dataContext = new DataContext())
+            using (var context = new DataContext())
             {
-                return dataContext
-                    .Set<Usuario>()
+                return context.Set<Usuario>()
                     .Include(u => u.Tarefas)
                     .GroupBy(u => u.NomeUsuario)
                     .Select(g => new UsuariosTarefasResponseDto
@@ -38,6 +37,28 @@ namespace TarefasApp.Infra.Data.Repositories
                         Usuario = g.Key,
                         Tarefas = Convert.ToInt32(g.Average(p => p.Tarefas.Count(x => x.Status == Status.CONCLUIDA)))
                     })
+                    .ToList();
+            }
+        }
+
+        public Usuario? GetById(Guid? id)
+        {
+            using (var context = new DataContext())
+            {
+                return context.Set<Usuario>()
+                    .Include(u => u.UsuarioProjetos) //Incluindo tabela intermediaria
+                        .ThenInclude(u => u.Projeto) // Então pegando os projetos associados ao usuário
+                    .Include(u => u.Comentarios)
+                    .SingleOrDefault(u => u.Id == id);
+            }
+        }
+
+        public List<Usuario>? GetAll()
+        {
+            using (var context = new DataContext())
+            {
+                return context.Set<Usuario>()
+                    .AsNoTracking()
                     .ToList();
             }
         }

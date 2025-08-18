@@ -46,8 +46,6 @@ namespace TarefasApp.Infra.Data.Repositories
             using (var context = new DataContext())
             {
                 return context.Set<Tarefa>()
-                    .Include(x => x.Projeto)
-                    .Include(x => x.Usuario)
                     .AsNoTracking()
                     .ToList();
             }

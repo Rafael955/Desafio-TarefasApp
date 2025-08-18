@@ -33,7 +33,7 @@ namespace TarefasApp.Domain.Dtos.Requests
         [Required(ErrorMessage = "Por favor, informe um projeto associado a tarefa!")]
         public required Guid IdProjeto { get; set; }
 
-        //[Required(ErrorMessage = "Por favor, informe um usuario associado a tarefa!")]
+        [Required(ErrorMessage = "Por favor, informe um usuario associado a tarefa!")]
         public required Guid? IdUsuario { get; set; }
     }
 }

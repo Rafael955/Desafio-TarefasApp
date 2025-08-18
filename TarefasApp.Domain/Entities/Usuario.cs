@@ -21,11 +21,11 @@ namespace TarefasApp.Domain.Entities
 
         #region Relacionamento
 
-        public List<UsuarioProjeto>? Projetos { get; set; }
+        public List<UsuarioProjeto>? UsuarioProjetos { get; set; } = new List<UsuarioProjeto>();
 
-        public List<Tarefa>? Tarefas { get; set; }
+        public List<Tarefa>? Tarefas { get; set; } = new List<Tarefa>();
 
-        public List<Comentario>? Comentarios { get; set; }
+        public List<Comentario>? Comentarios { get; set; } = new List<Comentario>();
 
         #endregion
     }
