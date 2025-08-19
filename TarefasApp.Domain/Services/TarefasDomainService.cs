@@ -155,14 +155,14 @@ namespace TarefasApp.Domain.Services
                     tarefa.Usuario?.Id,
                     tarefa.Usuario?.NomeUsuario
                 },
-                Comentarios = new List<ComentarioResponseDto>()
+                Comentarios = new List<ComentarioTarefaResponseDto>()
             };
 
             if(tarefa.Comentarios != null)
             {
                 foreach (var comentario in tarefa.Comentarios)
                 {
-                    _tarefa.Comentarios?.Add(new ComentarioResponseDto
+                    _tarefa.Comentarios?.Add(new ComentarioTarefaResponseDto
                     {
                         Id = comentario.Id.Value,
                         Texto = comentario.Texto
