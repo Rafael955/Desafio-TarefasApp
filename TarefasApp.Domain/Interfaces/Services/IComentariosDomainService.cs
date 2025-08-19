@@ -12,7 +12,7 @@ namespace TarefasApp.Domain.Interfaces.Services
     {
         ComentarioTarefaResponseDto AdicionarComentario(ComentarioTarefaRequestDto request);
 
-        ComentarioTarefaRequestDto AlterarComentario(Guid? idComentario, ComentarioTarefaRequestDto request);
+        ComentarioTarefaResponseDto AlterarComentario(Guid? idComentario, ComentarioTarefaRequestDto request);
 
         ComentarioTarefaResponseDto RemoverComentario(Guid? idComentario);
     }

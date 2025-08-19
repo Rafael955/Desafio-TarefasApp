@@ -12,7 +12,7 @@ namespace TarefasApp.Api.Controllers
     [ApiController]
     public class UsuariosController (IUsuariosDomainService usuariosDomainService) : ControllerBase
     {
-        [HttpGet("obter-usuario/{id}")]
+        [HttpGet("obter-usuario/{idUsuario}")]
         [ProducesResponseType(typeof(UsuarioResponseDto), StatusCodes.Status200OK)]
         public IActionResult Get(Guid? idUsuario)
         {

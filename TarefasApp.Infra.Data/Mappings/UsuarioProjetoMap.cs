@@ -26,11 +26,11 @@ namespace TarefasApp.Infra.Data.Mappings
                 .IsRequired();
 
             builder.HasOne(up => up.Usuario)
-                .WithMany(u => u.Projetos)
+                .WithMany(u => u.UsuarioProjetos)
                 .HasForeignKey(up => up.IdUsuario);
 
             builder.HasOne(up => up.Projeto)
-                .WithMany(p => p.Usuarios)
+                .WithMany(p => p.UsuariosProjeto)
                 .HasForeignKey(up => up.IdProjeto);
 
         }

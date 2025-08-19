@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,6 +36,27 @@ namespace TarefasApp.Infra.Data.Repositories
             {
                 context.Remove(id);
                 context.SaveChanges();
+            }
+        }
+
+        public List<Comentario>? GetAll()
+        {
+            using (var context = new DataContext())
+            {
+                return context.Set<Comentario>()
+                    .AsNoTracking()
+                    .ToList();
+            }
+        }
+
+        public Comentario? GetById(Guid? Id)
+        {
+            using (var context = new DataContext())
+            {
+                return context.Set<Comentario>()
+                    .Include(c => c.Usuario)
+                    .Include(c => c.Tarefa)
+                    .SingleOrDefault(c => c.Id == Id);
             }
         }
     }

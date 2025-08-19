@@ -57,6 +57,7 @@ namespace TarefasApp.Infra.Data.Repositories
                     .Include(x => x.UsuariosProjeto)
                        .ThenInclude(x => x.Usuario)
                     .Include(x => x.Tarefas)
+                        .ThenInclude(x => x.Usuario)
                     .SingleOrDefault(x => x.Id == Id);
             }
         }
@@ -69,6 +70,7 @@ namespace TarefasApp.Infra.Data.Repositories
                     .Include(x => x.UsuariosProjeto)
                        .ThenInclude(x => x.Usuario)
                     .Include(x => x.Tarefas)
+                        .ThenInclude(x => x.Usuario)
                     .FirstOrDefault(x => x.Nome.Equals(nome));
             }
         }

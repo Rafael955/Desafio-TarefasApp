@@ -14,5 +14,9 @@ namespace TarefasApp.Domain.Interfaces.Repositories
         void Update(Comentario comentario);
 
         void Delete(Guid id);
+
+        List<Comentario>? GetAll();
+
+        Comentario? GetById(Guid? Id);
     }
 }

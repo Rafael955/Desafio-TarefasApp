@@ -7,7 +7,7 @@ using TarefasApp.Domain.Interfaces.Services;
 
 namespace TarefasApp.Domain.Services
 {
-    public class ProjetosDomainService (IProjetosRepository projetosRepository): IProjetosDomainService
+    public class ProjetosDomainService(IProjetosRepository projetosRepository) : IProjetosDomainService
     {
         public ProjetoResponseDto CriarProjeto(ProjetoRequestDto request)
         {
@@ -36,7 +36,7 @@ namespace TarefasApp.Domain.Services
         {
             var projetoPesquisado = projetosRepository.GetByName(request.Nome);
 
-            if(projetoPesquisado == null)
+            if (projetoPesquisado == null)
                 throw new ApplicationException("Projeto não encontrado!");
 
             #region Regra de Negócio: Projetos não podem ter nomes idênticos
@@ -105,22 +105,55 @@ namespace TarefasApp.Domain.Services
             {
                 Id = projeto.Id,
                 Nome = projeto.Nome,
-                Descricao = projeto.Descricao
+                Descricao = projeto.Descricao,
+                Usuarios = new List<UsuarioResponseDto>(),
+                Tarefas = new List<TarefaResponseDto>()
             };
 
-            foreach (var tarefa in projeto.Tarefas)
+            if (projeto.UsuariosProjeto != null)
             {
-                projetoResponse.Tarefas?.Add(new TarefaResponseDto
+                foreach (var usuarioProjeto in projeto.UsuariosProjeto)
                 {
-                    Id = tarefa.Id,
-                    Titulo = tarefa.Titulo,
-                    Descricao = tarefa.Descricao,
-                    Prioridade = (int)tarefa.Prioridade, 
-                    Status = (int)tarefa.Status,
-                    DataVencimento = tarefa.DataVencimento,
-                    Projeto = tarefa.Projeto?.Nome ?? "Não Informado",
-                    Usuario = tarefa.Usuario?.NomeUsuario ?? "Não Informado"
-                });
+                    if (usuarioProjeto.Usuario != null)
+                    {
+                        projetoResponse.Usuarios.Add(new UsuarioResponseDto
+                        {
+                            Id = usuarioProjeto.Usuario.Id,
+                            NomeUsuario = usuarioProjeto.Usuario.NomeUsuario,
+                            Email = usuarioProjeto.Usuario.Email,
+                            NivelAcesso = new
+                            {
+                                Id = (int)usuarioProjeto.Usuario.NivelAcesso,
+                                Descricao = usuarioProjeto.Usuario.NivelAcesso.ToString()
+                            }
+                        });
+                    }
+                }
+            }
+
+            if (projeto.Tarefas != null)
+            {
+                foreach (var tarefa in projeto.Tarefas)
+                {
+                    projetoResponse.Tarefas.Add(new TarefaResponseDto
+                    {
+                        Id = tarefa.Id,
+                        Titulo = tarefa.Titulo,
+                        Descricao = tarefa.Descricao,
+                        Prioridade = new
+                        {
+                            Id = (int)tarefa.Prioridade,
+                            Descricao = tarefa.Prioridade.ToString()
+                        },
+                        Status = new
+                        {
+                            Id = (int)tarefa.Status,
+                            Descricao = tarefa.Status.ToString()
+                        },
+                        DataVencimento = tarefa.DataVencimento,
+                        IdUsuario = tarefa.IdUsuario,
+                    });
+                }
             }
 
             return projetoResponse;

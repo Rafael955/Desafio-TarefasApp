@@ -86,6 +86,7 @@ namespace TarefasApp.Domain.Services
                 {
                     Id = Guid.NewGuid(),
                     IdUsuario = tarefaPesquisada.IdUsuario,
+                    IdTarefa = tarefaPesquisada.Id,
                     DataHoraModificacao = DateTime.Now,
                     Descricao = descricaoModificacoesTarefa
                 };
@@ -137,40 +138,64 @@ namespace TarefasApp.Domain.Services
 
         private TarefaResponseDto ToResponse(Tarefa tarefa)
         {
-            var _tarefa =  new TarefaResponseDto
+            var response = new TarefaResponseDto
             {
                 Id = tarefa.Id,
                 Titulo = tarefa.Titulo,
                 Descricao = tarefa.Descricao,
-                Prioridade = (int)tarefa.Prioridade,
-                Status = (int)tarefa.Status,
+                Prioridade = new
+                {
+                    Id = (int)tarefa.Prioridade,
+                    Descricao = tarefa.Prioridade.ToString()
+                },
+                Status = new
+                {
+                    Id = (int)tarefa.Status,
+                    Descricao = tarefa.Status.ToString()
+                },
+
                 DataVencimento = tarefa.DataVencimento,
-                Projeto = new
+
+                IdProjeto = tarefa.IdProjeto,
+                Projeto = tarefa.Projeto == null ? null : new ProjetoResponseDto
                 {
-                    tarefa.Projeto?.Id,
-                    tarefa.Projeto?.Nome
+                    Id = tarefa.Projeto.Id,
+                    Nome = tarefa.Projeto.Nome,
+                    Descricao = tarefa.Projeto.Descricao
                 },
-                Usuario = new
+
+                IdUsuario = tarefa.IdUsuario,
+                Usuario = tarefa.Usuario == null ? null : new UsuarioResponseDto
                 {
-                    tarefa.Usuario?.Id,
-                    tarefa.Usuario?.NomeUsuario
+                    Id = tarefa.Usuario.Id,
+                    NomeUsuario = tarefa.Usuario.NomeUsuario,
+                    Email = tarefa.Usuario.Email,
+                    NivelAcesso = new
+                    {
+                        Id = (int)tarefa.Usuario.NivelAcesso,
+                        Descricao = tarefa.Usuario.NivelAcesso.ToString()
+                    }
                 },
+
                 Comentarios = new List<ComentarioTarefaResponseDto>()
             };
 
-            if(tarefa.Comentarios != null)
+            if (tarefa.Comentarios != null)
             {
                 foreach (var comentario in tarefa.Comentarios)
                 {
-                    _tarefa.Comentarios?.Add(new ComentarioTarefaResponseDto
+                    response.Comentarios.Add(new ComentarioTarefaResponseDto
                     {
-                        Id = comentario.Id.Value,
-                        Texto = comentario.Texto
+                        Id = comentario.Id,
+                        Texto = comentario.Texto,
+                        IdTarefa = comentario.IdTarefa,
+                        IdUsuario = comentario.IdUsuario
+                        // Não inclua o objeto Tarefa ou Usuario completo aqui, a menos que seja realmente necessário
                     });
                 }
             }
 
-            return _tarefa;
+            return response;
         }
 
         private void DefinirModificacoesTarefas(Tarefa tarefaPesquisada, TarefaRequestDto request, out string descricaoModificacoesTarefa)
@@ -197,6 +222,9 @@ namespace TarefasApp.Domain.Services
 
             if (tarefaPesquisada.Status != (Status)request.Status)
                 descricaoModificacoesTarefa += $"Status: De {tarefaPesquisada.Status} para {request.Status} |";
+
+            if (descricaoModificacoesTarefa != string.Empty)
+                descricaoModificacoesTarefa = $"Tarefa Id: {tarefaPesquisada.Id} |" + descricaoModificacoesTarefa;
         }
     }
 }

@@ -19,6 +19,9 @@ namespace TarefasApp.Domain.Entities
         public Guid? IdUsuario { get; set; }
         public Usuario? Usuario { get; set; }
 
+        public Guid? IdTarefa { get; set; }
+        public Tarefa? Tarefa { get; set; }
+
         #endregion
     }
 }

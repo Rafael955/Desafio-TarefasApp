@@ -21,11 +21,13 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<ITarefasDomainService, TarefasDomainService>();
 builder.Services.AddTransient<IProjetosDomainService, ProjetosDomainService>();
 builder.Services.AddTransient<IUsuariosDomainService, UsuariosDomainService>();
+builder.Services.AddTransient<IComentariosDomainService, ComentariosDomainService>();
 
 builder.Services.AddTransient<ITarefasRepository, TarefasRepository>();
 builder.Services.AddTransient<IProjetosRepository, ProjetosRepository>();
 builder.Services.AddTransient<IUsuariosRepository, UsuariosRepository>();
 builder.Services.AddTransient<IHistoricoRepository, HistoricoRepository>();
+builder.Services.AddTransient<IComentariosRepository, ComentariosRepository>();
 
 var app = builder.Build();
 

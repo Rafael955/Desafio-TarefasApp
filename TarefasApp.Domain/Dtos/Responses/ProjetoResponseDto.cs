@@ -14,6 +14,8 @@ namespace TarefasApp.Domain.Dtos.Responses
 
         public string? Descricao { get; set; }
 
+        public List<UsuarioResponseDto>? Usuarios { get; set; }
+
         public List<TarefaResponseDto>? Tarefas { get; set; }    
     }
 }

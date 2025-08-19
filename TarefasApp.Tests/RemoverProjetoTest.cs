@@ -84,7 +84,7 @@ namespace TarefasApp.Tests
                 Titulo = _faker.Name.JobTitle(),
                 DataVencimento = DateTime.Now.AddDays(1),
                 Descricao = _faker.Lorem.Paragraph().ClampLength(10, 200),
-                IdProjeto = projeto.Id,
+                IdProjeto = projeto.Id.Value,
                 IdUsuario = null,
                 Prioridade = (int)Prioridade.ALTA,
                 Status = (int)Status.EM_ANDAMENTO

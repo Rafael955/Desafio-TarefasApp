@@ -17,11 +17,15 @@ namespace TarefasApp.Domain.Dtos.Responses
 
         public DateTime DataVencimento { get; set; }
 
-        public int Status { get; set; }
+        public dynamic? Status { get; set; }
 
-        public int Prioridade { get; set; }
+        public dynamic? Prioridade { get; set; }
+
+        public Guid? IdProjeto { get; set; }
 
         public ProjetoResponseDto? Projeto { get; set; }
+
+        public Guid? IdUsuario { get; set; }
 
         public UsuarioResponseDto? Usuario { get; set; }
 
