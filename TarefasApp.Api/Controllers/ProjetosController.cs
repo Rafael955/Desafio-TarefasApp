@@ -136,5 +136,30 @@ namespace TarefasApp.Api.Controllers
                 });
             }
         }
+
+        [HttpPost("{idProjeto}/alocar-usuario")]
+        [ProducesResponseType(typeof(AlocarUsuarioEmProjetoRequestDto), StatusCodes.Status200OK)]
+        public IActionResult AllocateUserToProject(Guid idProjeto, AlocarUsuarioEmProjetoRequestDto request)
+        {
+            try
+            {
+                var result = projetosDomainService.AlocarUsuarioEmProjeto(idProjeto, request);
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            catch (ApplicationException ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, new
+                {
+                    message = ex.Message
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new
+                {
+                    message = ex.Message
+                });
+            }
+        }
     }
 }

@@ -28,6 +28,7 @@ builder.Services.AddTransient<IProjetosRepository, ProjetosRepository>();
 builder.Services.AddTransient<IUsuariosRepository, UsuariosRepository>();
 builder.Services.AddTransient<IHistoricoRepository, HistoricoRepository>();
 builder.Services.AddTransient<IComentariosRepository, ComentariosRepository>();
+builder.Services.AddTransient<IUsuarioProjetosRepository, UsuarioProjetosRepository>();
 
 var app = builder.Build();
 

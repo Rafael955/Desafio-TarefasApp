@@ -7,7 +7,7 @@ using TarefasApp.Domain.Interfaces.Services;
 
 namespace TarefasApp.Domain.Services
 {
-    public class ProjetosDomainService(IProjetosRepository projetosRepository) : IProjetosDomainService
+    public class ProjetosDomainService(IProjetosRepository projetosRepository, IUsuariosRepository usuariosRepository, IUsuarioProjetosRepository usuarioProjetosRepository) : IProjetosDomainService
     {
         public ProjetoResponseDto CriarProjeto(ProjetoRequestDto request)
         {
@@ -41,7 +41,7 @@ namespace TarefasApp.Domain.Services
 
             #region Regra de Negócio: Projetos não podem ter nomes idênticos
 
-            if (projetoPesquisado != null && projetoPesquisado.Id != idProjeto && projetoPesquisado.Nome.Equals(request.Nome))
+            if (projetoPesquisado.Id != idProjeto && projetoPesquisado.Nome.Equals(request.Nome))
                 throw new ApplicationException("Já existe um projeto com este nome!");
 
             #endregion
@@ -97,6 +97,27 @@ namespace TarefasApp.Domain.Services
             }
 
             return projetosResponse;
+        }
+
+        public ProjetoResponseDto AlocarUsuarioEmProjeto(Guid idProjeto, AlocarUsuarioEmProjetoRequestDto request)
+        {
+            if (projetosRepository.GetById(idProjeto) == null)
+                throw new ApplicationException("Projeto não encontrado!");
+
+            if (usuariosRepository.GetById(request.IdUsuario) == null)
+                throw new ApplicationException("Usuário não encontrado!");
+
+            UsuarioProjeto usuarioProjeto = new UsuarioProjeto
+            {
+                IdUsuario = request.IdUsuario,
+                IdProjeto = idProjeto
+            };
+
+            usuarioProjetosRepository.AddUserToProject(usuarioProjeto);
+
+            var projetoComUsuarioAlocado = projetosRepository.GetById(idProjeto);
+
+            return ToResponse(projetoComUsuarioAlocado);
         }
 
         private ProjetoResponseDto ToResponse(Projeto projeto)

@@ -19,5 +19,7 @@ namespace TarefasApp.Domain.Interfaces.Services
         ProjetoResponseDto? ObterProjetoPorId(Guid? idProjeto);
 
         List<ProjetoResponseDto>? ListarProjetos();
+
+        ProjetoResponseDto AlocarUsuarioEmProjeto(Guid idProjeto, AlocarUsuarioEmProjetoRequestDto request);
     }
 }
