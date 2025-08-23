@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TarefasApp.Tests
+namespace TarefasApp.Tests.ProjetosControllerTests
 {
     public class AlterarProjetoTest
     {

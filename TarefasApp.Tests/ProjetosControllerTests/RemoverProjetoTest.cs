@@ -13,7 +13,7 @@ using TarefasApp.Domain.Dtos.Requests;
 using TarefasApp.Domain.Dtos.Responses;
 using TarefasApp.Domain.Enums;
 
-namespace TarefasApp.Tests
+namespace TarefasApp.Tests.ProjetosControllerTests
 {
     public class RemoverProjetoTest
     {

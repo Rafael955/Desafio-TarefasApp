@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using TarefasApp.Domain.Dtos.Requests;
 using TarefasApp.Domain.Dtos.Responses;
 
-namespace TarefasApp.Tests
+namespace TarefasApp.Tests.ProjetosControllerTests
 {
     public class CriarProjetoTest
     {

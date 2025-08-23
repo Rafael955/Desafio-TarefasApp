@@ -29,4 +29,9 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="TarefasControllerTests\" />
+    <Folder Include="UsuariosControllerTests\" />
+  </ItemGroup>
+
 </Project>
