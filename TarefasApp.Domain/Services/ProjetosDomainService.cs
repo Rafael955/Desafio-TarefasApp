@@ -34,14 +34,14 @@ namespace TarefasApp.Domain.Services
 
         public ProjetoResponseDto AlterarProjeto(Guid? idProjeto, ProjetoRequestDto request)
         {
-            var projetoPesquisado = projetosRepository.GetByName(request.Nome);
+            var projetoPesquisado = projetosRepository.GetById(idProjeto);
 
             if (projetoPesquisado == null)
                 throw new ApplicationException("Projeto não encontrado!");
 
             #region Regra de Negócio: Projetos não podem ter nomes idênticos
 
-            if (projetoPesquisado.Id != idProjeto && projetoPesquisado.Nome.Equals(request.Nome))
+            if (projetoPesquisado != null && projetoPesquisado.Id != idProjeto && projetoPesquisado.Nome.Equals(request.Nome))
                 throw new ApplicationException("Já existe um projeto com este nome!");
 
             #endregion

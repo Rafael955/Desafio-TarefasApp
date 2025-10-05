@@ -1,6 +1,8 @@
+using Microsoft.EntityFrameworkCore;
 using TarefasApp.Domain.Interfaces.Repositories;
 using TarefasApp.Domain.Interfaces.Services;
 using TarefasApp.Domain.Services;
+using TarefasApp.Infra.Data.Contexts;
 using TarefasApp.Infra.Data.Repositories;
 using TarefasApp.Infra.Logging.Repositories;
 
@@ -29,6 +31,17 @@ builder.Services.AddTransient<IUsuariosRepository, UsuariosRepository>();
 builder.Services.AddTransient<IHistoricoRepository, HistoricoRepository>();
 builder.Services.AddTransient<IComentariosRepository, ComentariosRepository>();
 builder.Services.AddTransient<IUsuarioProjetosRepository, UsuarioProjetosRepository>();
+
+if (builder.Environment.IsEnvironment("Testing"))
+{
+    builder.Services.AddDbContext<DataContext>(options =>
+        options.UseInMemoryDatabase("InMemoryDbForTesting"));
+}
+else
+{
+    builder.Services.AddDbContext<DataContext>(options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionDocker")));
+}
 
 var app = builder.Build();
 

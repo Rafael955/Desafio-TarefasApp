@@ -9,15 +9,12 @@ using TarefasApp.Infra.Data.Contexts;
 
 namespace TarefasApp.Infra.Data.Repositories
 {
-    public class UsuarioProjetosRepository : IUsuarioProjetosRepository
+    public class UsuarioProjetosRepository(DataContext context) : IUsuarioProjetosRepository
     {
         public void AddUserToProject(UsuarioProjeto usuarioProjeto)
         {
-            using (var context = new DataContext())
-            {
-                context.Add(usuarioProjeto);
-                context.SaveChanges();
-            }
+            context.Add(usuarioProjeto);
+            context.SaveChanges();
         }
     }
 }

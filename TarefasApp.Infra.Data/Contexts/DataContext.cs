@@ -10,10 +10,20 @@ namespace TarefasApp.Infra.Data.Contexts
 {
     public class DataContext : DbContext
     {
+        public DataContext()
+        {
+
+        }
+
+        public DataContext(DbContextOptions<DataContext> options) : base(options)
+        {
+
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //optionsBuilder.UseInMemoryDatabase(databaseName: "BDTarefasApp");
-            optionsBuilder.UseSqlServer("Data Source=localhost, 1435;Initial Catalog=master;User ID=sa;Password=Desafio@2025;Encrypt=False");
+            //optionsBuilder.UseSqlServer("Data Source=localhost, 1435;Initial Catalog=master;User ID=sa;Password=Desafio@2025;Encrypt=False");
             //optionsBuilder.UseSqlServer("Data Source=sqlserver,1433;Initial Catalog=master;User ID=sa;Password=Desafio@2025;Encrypt=False");
         }
 

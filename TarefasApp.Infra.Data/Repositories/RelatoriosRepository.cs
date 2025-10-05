@@ -12,22 +12,19 @@ using TarefasApp.Infra.Data.Contexts;
 
 namespace TarefasApp.Infra.Data.Repositories
 {
-    public class RelatoriosRepository : IRelatoriosRepository
+    public class RelatoriosRepository(DataContext context) : IRelatoriosRepository
     {
         public List<UsuariosTarefasResponseDto>? GetUsersTasksAverage_Last30Days()
         {
-            using (var context = new DataContext())
-            {
-                return context.Set<Usuario>()
-                    .Include(u => u.Tarefas)
-                    .GroupBy(u => u.NomeUsuario)
-                    .Select(g => new UsuariosTarefasResponseDto
-                    {
-                        Usuario = g.Key,
-                        Tarefas = Convert.ToInt32(g.Average(p => p.Tarefas.Count(x => x.Status == Status.CONCLUIDA)))
-                    })
-                    .ToList();
-            }
+            return context.Set<Usuario>()
+                .Include(u => u.Tarefas)
+                .GroupBy(u => u.NomeUsuario)
+                .Select(g => new UsuariosTarefasResponseDto
+                {
+                    Usuario = g.Key,
+                    Tarefas = Convert.ToInt32(g.Average(p => p.Tarefas.Count(x => x.Status == Status.CONCLUIDA)))
+                })
+                .ToList();
         }
     }
 }

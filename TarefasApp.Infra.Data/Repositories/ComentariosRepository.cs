@@ -10,54 +10,39 @@ using TarefasApp.Infra.Data.Contexts;
 
 namespace TarefasApp.Infra.Data.Repositories
 {
-    public class ComentariosRepository : IComentariosRepository
+    public class ComentariosRepository(DataContext context) : IComentariosRepository
     {
         public void Add(Comentario comentario)
         {
-            using (var context = new DataContext())
-            {
-                context.Add(comentario);
-                context.SaveChanges();
-            }
+            context.Add(comentario);
+            context.SaveChanges();
         }
 
         public void Update(Comentario comentario)
         {
-            using (var context = new DataContext())
-            {
-                context.Update(comentario);
-                context.SaveChanges();
-            }
+            context.Update(comentario);
+            context.SaveChanges();
         }
 
         public void Delete(Guid id)
         {
-            using (var context = new DataContext())
-            {
-                context.Remove(id);
-                context.SaveChanges();
-            }
+            context.Remove(id);
+            context.SaveChanges();
         }
 
         public List<Comentario>? GetAll()
         {
-            using (var context = new DataContext())
-            {
-                return context.Set<Comentario>()
-                    .AsNoTracking()
-                    .ToList();
-            }
+            return context.Set<Comentario>()
+                .AsNoTracking()
+                .ToList();
         }
 
         public Comentario? GetById(Guid? Id)
         {
-            using (var context = new DataContext())
-            {
-                return context.Set<Comentario>()
-                    .Include(c => c.Usuario)
-                    .Include(c => c.Tarefa)
-                    .SingleOrDefault(c => c.Id == Id);
-            }
+            return context.Set<Comentario>()
+                .Include(c => c.Usuario)
+                .Include(c => c.Tarefa)
+                .SingleOrDefault(c => c.Id == Id);
         }
     }
 }

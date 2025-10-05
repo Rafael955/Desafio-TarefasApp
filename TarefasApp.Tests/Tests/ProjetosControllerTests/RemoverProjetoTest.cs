@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using TarefasApp.Domain.Dtos.Requests;
 using TarefasApp.Domain.Dtos.Responses;
 using TarefasApp.Domain.Enums;
+using TarefasApp.Tests.Factories;
 
 namespace TarefasApp.Tests.ProjetosControllerTests
 {
@@ -23,7 +24,8 @@ namespace TarefasApp.Tests.ProjetosControllerTests
         public RemoverProjetoTest()
         {
             //criando uma variável para instanciar e executar a API
-            _client = new WebApplicationFactory<Program>().CreateClient();
+            //_client = new WebApplicationFactory<Program>().CreateClient();
+            _client = new CustomWebApplicationFactory().CreateClient();
 
             //instanciando a biblioteca do Bogus
             _faker = new Faker("pt_BR");

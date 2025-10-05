@@ -30,8 +30,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="TarefasControllerTests\" />
-    <Folder Include="UsuariosControllerTests\" />
+    <Folder Include="Tests\TarefasControllerTests\" />
+    <Folder Include="Tests\UsuariosControllerTests\" />
   </ItemGroup>
 
 </Project>

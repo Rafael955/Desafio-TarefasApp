@@ -121,13 +121,6 @@ namespace TarefasApp.Api.Controllers
                 var result = projetosDomainService.ListarProjetos();
                 return StatusCode(StatusCodes.Status200OK, result);
             }
-            catch (ApplicationException ex)
-            {
-                return StatusCode(StatusCodes.Status400BadRequest, new
-                {
-                    message = ex.Message
-                });
-            }
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, new
