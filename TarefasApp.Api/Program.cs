@@ -40,7 +40,7 @@ if (builder.Environment.IsEnvironment("Testing"))
 else
 {
     builder.Services.AddDbContext<DataContext>(options =>
-        options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionDocker")));
+        options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionDockerLocalhost")));
 }
 
 var app = builder.Build();
