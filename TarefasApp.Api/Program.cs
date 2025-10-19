@@ -20,17 +20,18 @@ builder.Services.AddRouting(map => map.LowercaseUrls = true);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddTransient<ITarefasDomainService, TarefasDomainService>();
-builder.Services.AddTransient<IProjetosDomainService, ProjetosDomainService>();
-builder.Services.AddTransient<IUsuariosDomainService, UsuariosDomainService>();
-builder.Services.AddTransient<IComentariosDomainService, ComentariosDomainService>();
+// Registrando as dependências com o tempo de vida desejado
+builder.Services.AddScoped<ITarefasDomainService, TarefasDomainService>();
+builder.Services.AddScoped<IProjetosDomainService, ProjetosDomainService>();
+builder.Services.AddScoped<IUsuariosDomainService, UsuariosDomainService>();
+builder.Services.AddScoped<IComentariosDomainService, ComentariosDomainService>();
 
-builder.Services.AddTransient<ITarefasRepository, TarefasRepository>();
-builder.Services.AddTransient<IProjetosRepository, ProjetosRepository>();
-builder.Services.AddTransient<IUsuariosRepository, UsuariosRepository>();
-builder.Services.AddTransient<IHistoricoRepository, HistoricoRepository>();
-builder.Services.AddTransient<IComentariosRepository, ComentariosRepository>();
-builder.Services.AddTransient<IUsuarioProjetosRepository, UsuarioProjetosRepository>();
+builder.Services.AddScoped<ITarefasRepository, TarefasRepository>();
+builder.Services.AddScoped<IProjetosRepository, ProjetosRepository>();
+builder.Services.AddScoped<IUsuariosRepository, UsuariosRepository>();
+builder.Services.AddScoped<IHistoricoRepository, HistoricoRepository>();
+builder.Services.AddScoped<IComentariosRepository, ComentariosRepository>();
+builder.Services.AddScoped<IUsuarioProjetosRepository, UsuarioProjetosRepository>();
 
 if (builder.Environment.IsEnvironment("Testing"))
 {
