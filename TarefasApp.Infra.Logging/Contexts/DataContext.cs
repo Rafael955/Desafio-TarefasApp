@@ -10,8 +10,11 @@ namespace TarefasApp.Infra.Logging.Contexts
 {
     public class DataContext
     {
-        //private readonly string Url = "mongodb://admin:desafio2025@localhost:27018/";
-        private readonly string Url = "mongodb://admin:desafio2025@mongodb:27017";
+        private readonly string Url = "mongodb://admin:desafio2025@localhost:27018/";
+
+        //trocar para quando for usar o Dockerfile para containerizar a API
+        //private readonly string Url = "mongodb://admin:desafio2025@mongodb:27017";
+
         private readonly string Db = "Historico_Tarefas";
 
         private readonly IMongoDatabase _mongoDatabase;
