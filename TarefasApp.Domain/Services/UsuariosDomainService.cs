@@ -47,11 +47,10 @@ namespace TarefasApp.Domain.Services
                 NomeUsuario = usuario.NomeUsuario,
                 Email = usuario.Email,
                 Senha = usuario.Senha,
-                NivelAcesso = new
-                {
-                    Id = (int)usuario.NivelAcesso,
-                    Descricao = usuario.NivelAcesso.ToString()
-                },
+                NivelAcesso = new NivelAcessoDto(
+                    (int)usuario.NivelAcesso,
+                    usuario.NivelAcesso.ToString()
+                    ),
                 Projetos = new List<ProjetoResponseDto>(),
                 Tarefas = new List<TarefaResponseDto>(),
                 Comentarios = new List<ComentarioTarefaResponseDto>()
@@ -83,16 +82,14 @@ namespace TarefasApp.Domain.Services
                         Id = tarefa.Id,
                         Titulo = tarefa.Titulo,
                         Descricao = tarefa.Descricao,
-                        Prioridade = new
-                        {
-                            Id = (int)tarefa.Prioridade,
-                            Descricao = tarefa.Prioridade.ToString()
-                        },
-                        Status = new
-                        {
-                            Id = (int)tarefa.Status,
-                            Descricao = tarefa.Status.ToString()
-                        },
+                        Prioridade = new PrioridadeDto(
+                            (int)tarefa.Prioridade,
+                            tarefa.Prioridade.ToString()
+                            ),
+                        Status = new StatusDto(
+                            (int)tarefa.Status,
+                            tarefa.Status.ToString()
+                            ),
                         DataVencimento = tarefa.DataVencimento,
                         IdProjeto = tarefa.IdProjeto
                     });

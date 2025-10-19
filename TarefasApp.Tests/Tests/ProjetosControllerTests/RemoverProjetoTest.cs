@@ -79,6 +79,14 @@ namespace TarefasApp.Tests.ProjetosControllerTests
 
             ProjetoResponseDto projeto = Newtonsoft.Json.JsonConvert.DeserializeObject<ProjetoResponseDto>(content);
 
+            // Pegando Usuário Padrão Admin
+
+            var responseUsuarios = _client.GetAsync($"/api/usuarios/listar-usuarios")?.Result;
+
+            var contentUsuarios = responseUsuarios?.Content.ReadAsStringAsync()?.Result;
+
+            UsuarioResponseDto usuarioAdmin = Newtonsoft.Json.JsonConvert.DeserializeObject<List<UsuarioResponseDto>>(contentUsuarios).Where(x => x.NivelAcesso.Nivel.Equals("GERENTE")).FirstOrDefault();
+
             //Criando Tarefa para Projeto
 
             var request2 = new TarefaRequestDto
@@ -86,23 +94,23 @@ namespace TarefasApp.Tests.ProjetosControllerTests
                 Titulo = _faker.Name.JobTitle(),
                 DataVencimento = DateTime.Now.AddDays(1),
                 Descricao = _faker.Lorem.Paragraph().ClampLength(10, 200),
-                IdProjeto = projeto.Id.Value,
-                IdUsuario = null,
                 Prioridade = (int)Prioridade.ALTA,
-                Status = (int)Status.EM_ANDAMENTO
+                Status = (int)Status.EM_ANDAMENTO,
+                IdProjeto = projeto.Id.Value,
+                IdUsuario = usuarioAdmin.Id
             };
 
-            response = _client.PostAsJsonAsync("/api/tarefas/criar-tarefa", request2)?.Result;
-            
-            response?.StatusCode.Should().Be(HttpStatusCode.Created);
+            var response2 = _client.PostAsJsonAsync("/api/tarefas/criar-tarefa", request2)?.Result;
+
+            response2?.StatusCode.Should().Be(HttpStatusCode.Created);
 
             //Tentando agora remover o Projeto com a tarefa ainda em andamento
 
-            response = _client.DeleteAsync($"/api/projetos/remover-projeto/{projeto.Id}")?.Result;
+            var response3 = _client.DeleteAsync($"/api/projetos/remover-projeto/{projeto.Id}")?.Result;
 
-            response?.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+            response3?.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
-            content = response?.Content.ReadAsStringAsync()?.Result;
+            content = response3?.Content.ReadAsStringAsync()?.Result;
 
             content.Should().Contain("Não será possível excluir o Projeto pois o mesmo ainda possui Tarefas em aberto! Conclua ou remova estas Tarefas primeiro antes de tentar excluir!");
         }

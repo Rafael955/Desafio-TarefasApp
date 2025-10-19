@@ -57,7 +57,7 @@ namespace TarefasApp.Tests.ProjetosControllerTests
 
             var contentUsuarios = responseUsuarios?.Content.ReadAsStringAsync()?.Result;
 
-            UsuarioResponseDto usuarioAdmin = Newtonsoft.Json.JsonConvert.DeserializeObject<List<UsuarioResponseDto>>(contentUsuarios).FirstOrDefault(u => u.NivelAcesso.Descricao == "GERENTE");
+             UsuarioResponseDto usuarioAdmin = Newtonsoft.Json.JsonConvert.DeserializeObject<List<UsuarioResponseDto>>(contentUsuarios).Where(x => x.NivelAcesso.Nivel.Equals("GERENTE")).FirstOrDefault();
 
             #endregion
 

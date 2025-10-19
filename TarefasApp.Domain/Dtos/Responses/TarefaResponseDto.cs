@@ -17,9 +17,9 @@ namespace TarefasApp.Domain.Dtos.Responses
 
         public DateTime DataVencimento { get; set; }
 
-        public dynamic? Status { get; set; }
+        public StatusDto? Status { get; set; }
 
-        public dynamic? Prioridade { get; set; }
+        public PrioridadeDto? Prioridade { get; set; }
 
         public Guid? IdProjeto { get; set; }
 
@@ -31,4 +31,8 @@ namespace TarefasApp.Domain.Dtos.Responses
 
         public List<ComentarioTarefaResponseDto>? Comentarios { get; set; }
     }
+
+    public record PrioridadeDto(int Id, string Descricao);
+
+    public record StatusDto(int Id, string Descricao);
 }

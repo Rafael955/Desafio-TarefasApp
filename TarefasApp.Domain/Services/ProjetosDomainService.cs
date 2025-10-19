@@ -41,7 +41,9 @@ namespace TarefasApp.Domain.Services
 
             #region Regra de Negócio: Projetos não podem ter nomes idênticos
 
-            if (projetoPesquisado != null && projetoPesquisado.Id != idProjeto && projetoPesquisado.Nome.Equals(request.Nome))
+            var projetoPesquisadoPeloNome = projetosRepository.GetByName(request.Nome);
+
+            if (projetoPesquisadoPeloNome != null && projetoPesquisadoPeloNome.Id != idProjeto)
                 throw new ApplicationException("Já existe um projeto com este nome!");
 
             #endregion
@@ -142,11 +144,10 @@ namespace TarefasApp.Domain.Services
                             Id = usuarioProjeto.Usuario.Id,
                             NomeUsuario = usuarioProjeto.Usuario.NomeUsuario,
                             Email = usuarioProjeto.Usuario.Email,
-                            NivelAcesso = new
-                            {
-                                Id = (int)usuarioProjeto.Usuario.NivelAcesso,
-                                Descricao = usuarioProjeto.Usuario.NivelAcesso.ToString()
-                            }
+                            NivelAcesso = new NivelAcessoDto(
+                                (int)usuarioProjeto.Usuario.NivelAcesso,
+                                usuarioProjeto.Usuario.NivelAcesso.ToString()
+                                )
                         });
                     }
                 }
@@ -161,16 +162,14 @@ namespace TarefasApp.Domain.Services
                         Id = tarefa.Id,
                         Titulo = tarefa.Titulo,
                         Descricao = tarefa.Descricao,
-                        Prioridade = new
-                        {
-                            Id = (int)tarefa.Prioridade,
-                            Descricao = tarefa.Prioridade.ToString()
-                        },
-                        Status = new
-                        {
-                            Id = (int)tarefa.Status,
-                            Descricao = tarefa.Status.ToString()
-                        },
+                        Prioridade = new PrioridadeDto(
+                            (int)tarefa.Prioridade,
+                            tarefa.Prioridade.ToString()
+                            ),
+                        Status = new StatusDto(
+                            (int)tarefa.Status,
+                            tarefa.Status.ToString()
+                            ),
                         DataVencimento = tarefa.DataVencimento,
                         IdUsuario = tarefa.IdUsuario,
                     });

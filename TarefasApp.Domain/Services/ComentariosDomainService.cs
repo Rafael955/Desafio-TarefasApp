@@ -156,16 +156,14 @@ namespace TarefasApp.Domain.Services
                     Id = comentario.Tarefa.Id,
                     DataVencimento = comentario.Tarefa.DataVencimento,
                     Descricao = comentario.Tarefa.Descricao,
-                    Prioridade = new
-                    {
-                        Id = (int)comentario.Tarefa.Prioridade,
-                        Descricao = comentario.Tarefa.Prioridade.ToString()
-                    },
-                    Status = new
-                    {
-                        Id = (int)comentario.Tarefa.Status,
-                        Descricao = comentario.Tarefa.Status.ToString()
-                    },
+                    Prioridade = new PrioridadeDto(
+                        (int)comentario.Tarefa.Prioridade,
+                        comentario.Tarefa.Prioridade.ToString()
+                        ),
+                    Status = new StatusDto(
+                        (int)comentario.Tarefa.Status,
+                        comentario.Tarefa.Status.ToString()
+                        ),
                     Titulo = comentario.Tarefa.Titulo
                 },
                 Usuario = comentario.Usuario == null ? null : new UsuarioResponseDto
@@ -173,11 +171,10 @@ namespace TarefasApp.Domain.Services
                     Id = comentario.Usuario.Id,
                     NomeUsuario = comentario.Usuario.NomeUsuario,
                     Email = comentario.Usuario.Email,
-                    NivelAcesso = new
-                    {
-                        Id = (int)comentario.Usuario.NivelAcesso,
-                        Descricao = comentario.Usuario.NivelAcesso.ToString()
-                    },
+                    NivelAcesso = new NivelAcessoDto(
+                        (int)comentario.Usuario.NivelAcesso,
+                        comentario.Usuario.NivelAcesso.ToString()
+                        )
                 }
             };
         }

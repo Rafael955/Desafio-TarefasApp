@@ -10,7 +10,7 @@
 
         public string? Senha { get; set; }
 
-        public dynamic? NivelAcesso { get; set; }
+        public NivelAcessoDto? NivelAcesso { get; set; }
 
         public List<ProjetoResponseDto>? Projetos { get; set; }
 
@@ -18,4 +18,6 @@
 
         public List<ComentarioTarefaResponseDto>? Comentarios { get; set; }
     }
+
+    public record NivelAcessoDto(int Id, string Nivel);
 }

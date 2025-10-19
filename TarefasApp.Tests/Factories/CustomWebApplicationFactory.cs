@@ -18,6 +18,7 @@ namespace TarefasApp.Tests.Factories
             {
                 // Remover o DbContext atual para usar um novo
                 var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<DataContext>));
+
                 if (descriptor != null)
                 {
                     services.Remove(descriptor);

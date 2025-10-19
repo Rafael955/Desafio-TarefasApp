@@ -16,9 +16,9 @@ namespace TarefasApp.Tests.Helpers
         public static void SeedData(DataContext context)
         {
             // Limpa os dados antes de popular
-            context.Set<Usuario>().RemoveRange(context.Set<Usuario>());
+            //context.Set<Usuario>().RemoveRange(context.Set<Usuario>());
             
-            context.SaveChanges();
+            //context.SaveChanges();
 
             if (!context.Set<Usuario>().Any(u => u.Id == Guid.Parse("C3610A1A-1FB1-44A6-A7A4-311D05C3C61D")))
             {

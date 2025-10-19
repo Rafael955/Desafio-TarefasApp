@@ -97,8 +97,8 @@ namespace TarefasApp.Tests.ProjetosControllerTests
             //Tentando atualizar segundo projeto com o mesmo nome do primeiro
             var requestUpdate = new ProjetoRequestDto
             {
-                Nome = _faker.Name.JobTitle(),
-                Descricao = _faker.Lorem.Paragraph().ClampLength(10, 255)
+                Nome = request.Nome,
+                Descricao = secondRequest.Descricao
             };
 
             var responseUpdate = _client.PutAsJsonAsync($"/api/projetos/alterar-projeto/{projeto.Id}", requestUpdate)?.Result;
